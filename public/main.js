@@ -27,3 +27,20 @@ getJS.onclick = ()=>{
     }
     request.send()
 }
+
+getXML.onclick = ()=>{
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET','/demo.xml')
+    xhr.onreadystatechange =()=>{
+        if(xhr.readyState === 4){
+            if(xhr.status >= 200 && xhr.status < 300){
+                // xhr 有 responseXML 属性
+                const xmlDom = xhr.responseXML
+                const text = xmlDom.querySelector('warning')
+                console.log(text);
+            }
+        }
+    }
+    xhr.send()
+}
+
