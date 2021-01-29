@@ -24,7 +24,12 @@ var server = http.createServer(function(request, response){
     if(path === '/index.html'){
         response.statusCode = 200
         response.setHeader('Content-Type', 'text/html;charset=utf-8')
-        response.write(fs.readFileSync('public/index.html'))
+        let string = fs.readFileSync('public/index.html').toString()
+        const page1 = fs.readFileSync('db/page1.json').toString()
+        const array = JSON.parse(page1)
+        const result = array.map(item =>`<li>${item.id}</li>`).join('')
+        string = string.replace('{{page1}}', `<ul>${result}</ul>`)
+        response.write(string)
         response.end()
     } else if(path === '/main.js'){
         response.statusCode = 200
